@@ -23,6 +23,7 @@ namespace Application.Tarefa.ViewModel
         [MaxLength(5)]
         [DisplayName("SLA")]
         public string sDsSLA { get; set; }
+        public string? sDsCaminhoAnexo { get; set; }
         public DateTime tDtCadastro { get; set; }
         public int nStSituacao { get; set; }
 

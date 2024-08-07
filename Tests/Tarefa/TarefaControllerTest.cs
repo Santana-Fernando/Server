@@ -79,6 +79,7 @@ namespace Tests.Tarefa
             {
                 sNmTitulo = "Fazer pastel",
                 sDsSLA = "25,5",
+                sDsCaminhoAnexo = "caminho",
                 nStSituacao = 1,
                 tDtCadastro = DateTime.Now
             };
@@ -135,6 +136,7 @@ namespace Tests.Tarefa
                 Id = 1111111,
                 sNmTitulo = "Fazer pastel",
                 sDsSLA = "25,5",
+                sDsCaminhoAnexo = "caminho",
                 nStSituacao = 1,
                 tDtCadastro = DateTime.Now
             };

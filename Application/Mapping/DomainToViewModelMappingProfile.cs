@@ -10,6 +10,7 @@ namespace Application.Mapping
         {
             CreateMap<Tarefas, TarefaView>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.sDsCaminhoAnexo, opt => opt.MapFrom(src => src.sDsCaminhoAnexo))
                 .ForMember(dest => dest.sNmTitulo, opt => opt.MapFrom(src => src.sNmTitulo))
                 .ForMember(dest => dest.sDsSLA, opt => opt.MapFrom(src => src.sDsSLA))
                 .ForMember(dest => dest.tDtCadastro, opt => opt.MapFrom(src => src.tDtCadastro))

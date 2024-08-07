@@ -7,6 +7,7 @@ namespace Domain.Tarefa.Entidades
         public int Id { get; set; }
         public string sNmTitulo { get; set; }
         public string sDsSLA { get; set; }
+        public string? sDsCaminhoAnexo { get; set; }
         public DateTime tDtCadastro { get; set; }
         public int nStSituacao { get; set; }
     }

@@ -190,6 +190,7 @@ namespace Tests.Tarefa
             {
                 sNmTitulo = "Fazer torrada",
                 sDsSLA = "25,5",
+                sDsCaminhoAnexo = "caminho",
                 nStSituacao = 1,
                 tDtCadastro = DateTime.Now
             };
@@ -212,6 +213,7 @@ namespace Tests.Tarefa
             {
                 sNmTitulo = "Fazer torrada",
                 sDsSLA = "25,5",
+                sDsCaminhoAnexo = "caminho",
                 nStSituacao = 1,
                 tDtCadastro = DateTime.Now
             };
@@ -247,6 +249,7 @@ namespace Tests.Tarefa
                 {
                     sNmTitulo = "Fazer torrada",
                     sDsSLA = "25,5",
+                     sDsCaminhoAnexo = "caminho",
                     nStSituacao = 1,
                     tDtCadastro = DateTime.Now
                 }

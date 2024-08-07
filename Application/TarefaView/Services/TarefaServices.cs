@@ -85,6 +85,7 @@ namespace Application.Tarefa.Services
             {
                 tarefaParaAtualizar.sNmTitulo = tarefa.sNmTitulo;
                 tarefaParaAtualizar.sDsSLA = tarefa.sDsSLA;
+                tarefaParaAtualizar.sDsCaminhoAnexo = tarefa.sDsCaminhoAnexo;
 
                 _tarefaRepository.Update(tarefaParaAtualizar);
                 return httpResponse.Response(HttpStatusCode.OK, null, "OK");

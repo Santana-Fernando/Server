@@ -29,6 +29,13 @@ namespace Presentation
             services.AddInfrastructure(Configuration);
             services.AddAutoMapperConfiguration();
             services.AddControllersWithViews();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader());
+            });
             services.AddControllers()
             .AddJsonOptions(options =>
             {
@@ -60,7 +67,7 @@ namespace Presentation
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseEndpoints(endpoints =>
             {

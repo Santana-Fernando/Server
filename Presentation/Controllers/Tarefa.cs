@@ -45,6 +45,7 @@ namespace Presentation.Controllers
             {
 
                 var result = _tarefaServices.Add(tarefaView);
+                var response = new { Message = result.ReasonPhrase };
 
                 switch (result.StatusCode)
                 {
@@ -54,7 +55,7 @@ namespace Presentation.Controllers
                         return StatusCode(StatusCodes.Status500InternalServerError, result.ReasonPhrase);
 
                     default:
-                        return StatusCode(StatusCodes.Status200OK, result.ReasonPhrase);
+                        return Ok(response);
                 }
             }
             catch (Exception)
@@ -97,7 +98,7 @@ namespace Presentation.Controllers
                         return StatusCode(StatusCodes.Status404NotFound, result.ReasonPhrase);
 
                     default:
-                        return StatusCode(StatusCodes.Status200OK);
+                        return Ok(StatusCodes.Status200OK);
                 }
             }
             catch (Exception)
@@ -121,7 +122,7 @@ namespace Presentation.Controllers
                         return StatusCode(StatusCodes.Status404NotFound, result.ReasonPhrase);
 
                     default:
-                        return StatusCode(StatusCodes.Status200OK);
+                        return Ok(StatusCodes.Status200OK);
                 }
             }
             catch (Exception)

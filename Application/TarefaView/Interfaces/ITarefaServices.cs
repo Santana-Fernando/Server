@@ -1,4 +1,5 @@
 ﻿using Application.Tarefa.ViewModel;
+using Domain.Tarefa.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
