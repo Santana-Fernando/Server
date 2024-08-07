@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Moq;
 using Tests.Helper;
-using Infra.Data.Repository.Usuario;
+using Infra.Data.Repository.Tarefa;
 using Domain.Tarefa.Entidades;
 using System.Linq;
 using System.Collections.Generic;

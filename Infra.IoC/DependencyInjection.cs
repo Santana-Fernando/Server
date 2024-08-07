@@ -2,7 +2,7 @@
 using Application.Tarefa.Services;
 using Domain.Tarefa.Interfaces;
 using Infra.Data.Context;
-using Infra.Data.Repository.Usuario;
+using Infra.Data.Repository.Tarefa;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

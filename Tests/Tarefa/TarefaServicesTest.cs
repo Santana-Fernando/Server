@@ -5,7 +5,7 @@ using Application.Tarefa.ViewModel;
 using Application.Validation;
 using AutoMapper;
 using Infra.Data.Context;
-using Infra.Data.Repository.Usuario;
+using Infra.Data.Repository.Tarefa;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
@@ -27,7 +27,7 @@ namespace Tests.Tarefa
 
         public TarefaServicesTest()
         {
-            _tarefaRepository = UsuariosRepositoryStub();
+            _tarefaRepository = TarefaRepositoryStub();
             AppSettingsMock appSettingsMock = new AppSettingsMock();
             var config = appSettingsMock.configIMapper();
             _mapperMock = config.CreateMapper();
@@ -35,7 +35,7 @@ namespace Tests.Tarefa
             _tarefaService = new TarefaServices(_tarefaRepository, _mapperMock);
         }
 
-        private TarefaRepository UsuariosRepositoryStub()
+        private TarefaRepository TarefaRepositoryStub()
         {
             AppSettingsMock appSettingsMock = new AppSettingsMock();
             var options = appSettingsMock.OptionsDatabaseStub();
@@ -276,12 +276,12 @@ namespace Tests.Tarefa
         [Fact(DisplayName = "Should return badRequest id Update not found user")]
         public async void TarefaServices_ShouldUpdateReturnNotFound()
         {
-            var usuario = await _tarefaService.GetById(1);
+            var tarefa = await _tarefaService.GetById(1);
 
-            usuario.sNmTitulo = "santana";
-            usuario.Id = 1000;
+            tarefa.sNmTitulo = "santana";
+            tarefa.Id = 1000;
 
-            var statusReturn = _tarefaService.Update(usuario);
+            var statusReturn = _tarefaService.Update(tarefa);
 
             Assert.NotNull(statusReturn);
             Assert.Equal(System.Net.HttpStatusCode.NotFound, statusReturn.StatusCode);
@@ -291,11 +291,11 @@ namespace Tests.Tarefa
         [Fact(DisplayName = "Should return badRequest id Update not found user")]
         public async void TarefaServices_ShouldUpdateReturnBadRequest()
         {
-            var usuario = await _tarefaService.GetById(1);
+            var tarefa = await _tarefaService.GetById(1);
 
-            usuario.sNmTitulo = "";
+            tarefa.sNmTitulo = "";
 
-            var statusReturn = _tarefaService.Update(usuario);
+            var statusReturn = _tarefaService.Update(tarefa);
 
             Assert.NotNull(statusReturn);
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, statusReturn.StatusCode);
@@ -307,7 +307,6 @@ namespace Tests.Tarefa
             HttpResponse httpResponse = new HttpResponse();
             var tarefaService = new Mock<ITarefaServices>();
 
-            var usuario = new TarefaView();
             tarefaService.Setup(x => x.Remove(0)).Returns(httpResponse.Response(HttpStatusCode.OK, null, "OK"));
 
             var result = tarefaService.Object.Remove(0);

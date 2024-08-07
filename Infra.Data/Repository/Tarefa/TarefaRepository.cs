@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Infra.Data.Repository.Usuario
+namespace Infra.Data.Repository.Tarefa
 {
     public class TarefaRepository : ITarefa
     {

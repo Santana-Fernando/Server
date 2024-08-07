@@ -13,9 +13,9 @@ namespace Presentation.Controllers
     public class Tarefa : Controller
     {
         private readonly ITarefaServices _tarefaServices;
-        public Tarefa(ITarefaServices usuarioServices)
+        public Tarefa(ITarefaServices tarefaServices)
         {
-            _tarefaServices = usuarioServices;
+            _tarefaServices = tarefaServices;
         }
 
         [Route("GetList")]

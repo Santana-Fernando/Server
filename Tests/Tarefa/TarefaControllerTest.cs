@@ -1,6 +1,6 @@
 ﻿using Xunit.Abstractions;
 using Xunit;
-using Infra.Data.Repository.Usuario;
+using Infra.Data.Repository.Tarefa;
 using Tests.Helper;
 using Infra.Data.Context;
 using AutoMapper;
@@ -23,7 +23,7 @@ namespace Tests.Tarefa
         private readonly Presentation.Controllers.Tarefa _tarefaController;
         public TarefaControllerTest()
         {
-            _tarefaRepository = UsuariosRepositoryStub();
+            _tarefaRepository = TarefaRepositoryStub();
             AppSettingsMock appSettingsMock = new AppSettingsMock();
             var config = appSettingsMock.configIMapper();
             var mapperMock = config.CreateMapper();
@@ -32,7 +32,7 @@ namespace Tests.Tarefa
             _tarefaController = new Presentation.Controllers.Tarefa(_tarefaService);
         }
 
-        private TarefaRepository UsuariosRepositoryStub()
+        private TarefaRepository TarefaRepositoryStub()
         {
             AppSettingsMock appSettingsMock = new AppSettingsMock();
             var options = appSettingsMock.OptionsDatabaseStub();
@@ -51,8 +51,8 @@ namespace Tests.Tarefa
         [Fact(DisplayName = "Should call the register")]
         public void TarefaController_shouldCallRegister()
         {
-            TarefaView usuariosViewModel = new TarefaView();
-            var result = _tarefaController.Register(usuariosViewModel);
+            TarefaView tarefaView = new TarefaView();
+            var result = _tarefaController.Register(tarefaView);
 
             Assert.NotNull(result);
         }
@@ -60,8 +60,8 @@ namespace Tests.Tarefa
         [Fact(DisplayName = "Should return 400 register return error")]
         public void TarefaController_shouldRegisterReturn400()
         {
-            TarefaView usuariosViewModel = new TarefaView();
-            var result = _tarefaController.Register(usuariosViewModel);
+            TarefaView tarefaView = new TarefaView();
+            var result = _tarefaController.Register(tarefaView);
 
             if (result is ObjectResult objectResult)
             {
@@ -162,8 +162,6 @@ namespace Tests.Tarefa
         [Fact(DisplayName = "Should call function Remove")]
         public void TarefaController_shouldCallFunctionRemove()
         {
-            TarefaView usuariosView = new TarefaView();
-
             var result = _tarefaController.Remove(0);
 
             Assert.NotNull(result);

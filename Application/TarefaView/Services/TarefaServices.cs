@@ -41,8 +41,8 @@ namespace Application.Tarefa.Services
                         messageError);
                 }
 
-                var usuarioMap = _mapper.Map<Tarefas>(tarefa);
-                _tarefaRepository.Add(usuarioMap);
+                var tarefaMap = _mapper.Map<Tarefas>(tarefa);
+                _tarefaRepository.Add(tarefaMap);
 
                 return httpResponse.Response(HttpStatusCode.OK, null, "OK");
             }
@@ -97,10 +97,10 @@ namespace Application.Tarefa.Services
         {
             HttpResponse httpResponse = new HttpResponse();
             
-            var usuarioRemove = _tarefaRepository.GetById(id).Result;
-            if (usuarioRemove != null)
+            var tarefaRemove = _tarefaRepository.GetById(id).Result;
+            if (tarefaRemove != null)
             {
-                _tarefaRepository.Remove(usuarioRemove);
+                _tarefaRepository.Remove(tarefaRemove);
                 return httpResponse.Response(HttpStatusCode.OK, null, "OK");
             }
 
