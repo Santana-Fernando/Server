@@ -93,11 +93,11 @@ namespace Application.Tarefa.Services
             return httpResponse.Response(HttpStatusCode.NotFound, null, "Tarefa não encontrada!");
         }
 
-        public HttpResponseMessage Remove(TarefaView tarefa)
+        public HttpResponseMessage Remove(int id)
         {
             HttpResponse httpResponse = new HttpResponse();
             
-            var usuarioRemove = _tarefaRepository.GetById(tarefa.Id).Result;
+            var usuarioRemove = _tarefaRepository.GetById(id).Result;
             if (usuarioRemove != null)
             {
                 _tarefaRepository.Remove(usuarioRemove);

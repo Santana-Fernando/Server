@@ -308,9 +308,9 @@ namespace Tests.Tarefa
             var tarefaService = new Mock<ITarefaServices>();
 
             var usuario = new TarefaView();
-            tarefaService.Setup(x => x.Remove(usuario)).Returns(httpResponse.Response(HttpStatusCode.OK, null, "OK"));
+            tarefaService.Setup(x => x.Remove(0)).Returns(httpResponse.Response(HttpStatusCode.OK, null, "OK"));
 
-            var result = tarefaService.Object.Remove(usuario);
+            var result = tarefaService.Object.Remove(0);
             Assert.NotNull(result);
             Assert.Equal(System.Net.HttpStatusCode.OK, result.StatusCode);
         }
@@ -318,12 +318,7 @@ namespace Tests.Tarefa
         [Fact(DisplayName = "Should return badRequest id Delete not found user")]
         public async void TarefaServices_ShouldRemoveReturnBadRequest()
         {
-            var usuario = await _tarefaService.GetById(1);
-
-            usuario.sNmTitulo = "santana";
-            usuario.Id = 1000;
-
-            var statusReturn = _tarefaService.Remove(usuario);
+            var statusReturn = _tarefaService.Remove(1000);
 
             Assert.NotNull(statusReturn);
             Assert.Equal(System.Net.HttpStatusCode.NotFound, statusReturn.StatusCode);

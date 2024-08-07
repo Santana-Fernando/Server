@@ -12,6 +12,6 @@ namespace Application.Tarefa.Interfaces
         Task<IEnumerable<TarefaView>> GetList();
         Task<TarefaView> GetById(int id);
         HttpResponseMessage Update(TarefaView tarefa);
-        HttpResponseMessage Remove(TarefaView tarefa);
+        HttpResponseMessage Remove(int tarefa);
     }
 }

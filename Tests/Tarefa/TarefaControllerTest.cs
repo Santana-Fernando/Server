@@ -164,7 +164,7 @@ namespace Tests.Tarefa
         {
             TarefaView usuariosView = new TarefaView();
 
-            var result = _tarefaController.Remove(usuariosView);
+            var result = _tarefaController.Remove(0);
 
             Assert.NotNull(result);
         }
@@ -174,7 +174,7 @@ namespace Tests.Tarefa
         {
             TarefaView tarefaView = new TarefaView();
 
-            var result = _tarefaController.Remove(tarefaView);
+            var result = _tarefaController.Remove(0);
 
             if (result is ObjectResult objectResult)
             {

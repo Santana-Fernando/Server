@@ -20,7 +20,6 @@ namespace Presentation.Controllers
 
         [Route("GetList")]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(UnauthorizedResult))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TarefaView>))]
         public async Task<IActionResult> GetList()
         {
@@ -37,7 +36,6 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [Route("Register")]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(UnauthorizedResult))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -68,7 +66,6 @@ namespace Presentation.Controllers
 
         [HttpGet]
         [Route("GetById")]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(UnauthorizedResult))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TarefaView))]
         public async Task<IActionResult> GetById(int id)
         {
@@ -87,7 +84,6 @@ namespace Presentation.Controllers
         [Route("Update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type=typeof(string))]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(UnauthorizedResult))]
         public IActionResult Update(TarefaView tarefaView)
         {
             try
@@ -114,12 +110,11 @@ namespace Presentation.Controllers
         [Route("Remove")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(UnauthorizedResult))]
-        public IActionResult Remove(TarefaView tarefaView)
+        public IActionResult Remove(int id)
         {
             try
             {
-                var result = _tarefaServices.Remove(tarefaView);
+                var result = _tarefaServices.Remove(id);
                 switch (result.StatusCode)
                 {
                     case System.Net.HttpStatusCode.NotFound:
