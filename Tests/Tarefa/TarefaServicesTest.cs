@@ -316,7 +316,7 @@ namespace Tests.Tarefa
         }
 
         [Fact(DisplayName = "Should return badRequest id Delete not found user")]
-        public async void TarefaServices_ShouldRemoveReturnBadRequest()
+        public void TarefaServices_ShouldRemoveReturnBadRequest()
         {
             var statusReturn = _tarefaService.Remove(1000);
 
