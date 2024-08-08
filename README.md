@@ -28,10 +28,12 @@ Insira seus dados na conections string
 "DefaultConnection": "Data Source=host;User ID=usuario;Password=senha;Database=TaskRegister;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
 ```
 
-### 2. Rode as migations
+### 3. Rode as migations
 
 Ferramentas > Gerenciador de pacotes NuGet > Console do gerendiado de pacotes > e rode o comando
 
 ```bash
 Update-Database
 ```
+### 3. Rode o projeto
+botão direito no projeto Presentation > Definir como projeto de inicialização > Iniciar
