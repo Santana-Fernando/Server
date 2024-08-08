@@ -59,3 +59,8 @@ Coloque as credenciais no arquivo docker-compose.override.yml
 ```bash
 - ConnectionStrings__DockerConnection=Server=sqlserver;Database=TaskRegister;User ID=sa;Password=Fern@nd01331;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
 ```
+
+Abra o terminal na pasta do projeto e rode o comando
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+```
