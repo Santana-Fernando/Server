@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  sqlserver:
+    image: sqlserver
+
+  presentation:
+    image: ${DOCKER_REGISTRY-}presentation
+    build:
+      context: .
+      dockerfile: Presentation\Dockerfile

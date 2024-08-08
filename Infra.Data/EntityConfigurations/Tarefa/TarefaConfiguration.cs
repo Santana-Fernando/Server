@@ -10,8 +10,8 @@ namespace Infra.Data.EntityConfigurations.Tarefa
         public void Configure(EntityTypeBuilder<Tarefas> builder)
         {
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
-            builder.Property(p => p.sNmTitulo).HasMaxLength(20).IsRequired();
-            builder.Property(p => p.sDsSLA).HasMaxLength(10).IsRequired();
+            builder.Property(p => p.sNmTitulo).HasMaxLength(100).IsRequired();
+            builder.Property(p => p.sDsSLA).HasMaxLength(5).IsRequired();
             builder.Property(p => p.nStSituacao).IsRequired();
             builder.Property(p => p.tDtCadastro).IsRequired();
 
@@ -21,6 +21,7 @@ namespace Infra.Data.EntityConfigurations.Tarefa
                    Id = 1,
                    sNmTitulo = "Fazer café",
                    sDsSLA = "25,5",
+                   sDsCaminhoAnexo = "",
                    nStSituacao = 1,
                    tDtCadastro = DateTime.Now
                }
