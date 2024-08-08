@@ -37,3 +37,25 @@ Update-Database
 ```
 ### 3. Rode o projeto
 botão direito no projeto Presentation > Definir como projeto de inicialização > Iniciar
+
+
+### Extra. Rode o projeto pelo Docker
+
+Ajuste a string de conexão
+
+```bash
+"DockerConnection": "Server=sqlserver;Database=TaskRegister;User ID=usuario;Password=senha;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;"
+```
+
+Faça a mudança no Infra.IoC > DependenceInjection
+```bash
+services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    configuration.GetConnectionString("DockerConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
+```
+
+Coloque as credenciais no arquivo docker-compose.override.yml
+```bash
+- ConnectionStrings__DockerConnection=Server=sqlserver;Database=TaskRegister;User ID=sa;Password=Fern@nd01331;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
+```
