@@ -156,20 +156,29 @@ namespace Presentation.Controllers
                 return BadRequest("Nenhum arquivo foi enviado.");
             }
 
-            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "anexos");
-            if (!Directory.Exists(uploadsPath))
+            try
             {
-                Directory.CreateDirectory(uploadsPath);
+                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "anexos");
+                if (!Directory.Exists(uploadsPath))
+                {
+                    Directory.CreateDirectory(uploadsPath);
+                }
+
+                var uniqueFileName = GenerateUniqueFileName(uploadsPath, file.FileName);
+                var filePath = Path.Combine(uploadsPath, uniqueFileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return Ok(new { FilePath = filePath });
             }
-
-            var filePath = Path.Combine(uploadsPath, file.FileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            catch (Exception ex)
             {
-                await file.CopyToAsync(stream);
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, "Erro interno ao tentar fazer o upload do arquivo.");
             }
-
-            return Ok(new { FilePath = filePath });
         }
 
         [HttpPut("atualizar-arquivo")]
@@ -186,7 +195,8 @@ namespace Presentation.Controllers
 
             System.IO.File.Delete(caminhoCompleto);
 
-            var caminhoCompletoNovoArquivo = Path.Combine(caminhoPasta, novoArquivo.FileName);
+            var nomeArquivoUnico = GenerateUniqueFileName(caminhoPasta, novoArquivo.FileName);
+            var caminhoCompletoNovoArquivo = Path.Combine(caminhoPasta, nomeArquivoUnico);
 
             using (var stream = new FileStream(caminhoCompletoNovoArquivo, FileMode.Create))
             {
@@ -232,6 +242,22 @@ namespace Presentation.Controllers
 
             var ext = Path.GetExtension(fileName).ToLowerInvariant();
             return mimeTypes.ContainsKey(ext) ? mimeTypes[ext] : "application/octet-stream";
+        }
+
+        private string GenerateUniqueFileName(string directoryPath, string fileName)
+        {
+            var uniqueFileName = Path.GetFileNameWithoutExtension(fileName);
+            var extension = Path.GetExtension(fileName);
+            var finalFilePath = Path.Combine(directoryPath, fileName);
+            var counter = 0;
+
+            while (System.IO.File.Exists(finalFilePath))
+            {
+                counter++;
+                finalFilePath = Path.Combine(directoryPath, $"{uniqueFileName}.{counter}{extension}");
+            }
+
+            return Path.GetFileName(finalFilePath);
         }
     }
 }
