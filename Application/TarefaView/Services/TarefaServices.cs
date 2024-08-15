@@ -64,6 +64,11 @@ namespace Application.Tarefa.Services
             return _mapper.Map<IEnumerable<TarefaView>>(tarefa);
         }
 
+        public async Task<IEnumerable<SituacaoTarefa>> GetListSituacao()
+        {
+            return await _tarefaRepository.GetListSituacao();
+        }
+
         public HttpResponseMessage Update(TarefaView tarefa)
         {
             HttpResponse httpResponse = new HttpResponse();
@@ -86,6 +91,7 @@ namespace Application.Tarefa.Services
                 tarefaParaAtualizar.sNmTitulo = tarefa.sNmTitulo;
                 tarefaParaAtualizar.sDsSLA = tarefa.sDsSLA;
                 tarefaParaAtualizar.sDsCaminhoAnexo = tarefa.sDsCaminhoAnexo;
+                tarefaParaAtualizar.nStSituacao = tarefa.nStSituacao;
 
                 _tarefaRepository.Update(tarefaParaAtualizar);
                 return httpResponse.Response(HttpStatusCode.OK, null, "OK");

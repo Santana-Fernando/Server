@@ -13,7 +13,7 @@ services:
     container_name: presentation
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DockerConnection=Server=sqlserver;Database=TaskRegister;User ID=sa;Password=Fern@nd01331;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
+      - ConnectionStrings__DockerConnection=Server=sqlserver;Database=TaskRegister;User ID=user;Password=password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
     depends_on:
       - sqlserver
     ports:

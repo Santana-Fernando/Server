@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Presentation.Controllers
@@ -16,6 +17,22 @@ namespace Presentation.Controllers
         public Tarefa(ITarefaServices tarefaServices)
         {
             _tarefaServices = tarefaServices;
+        }
+        
+        [Route("GetListSituacao")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TarefaView>))]
+        public async Task<IActionResult> GetListSituacao()
+        {
+            try
+            {
+                var result = await _tarefaServices.GetListSituacao();
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (System.Exception)
+            {
+                return Unauthorized();
+            }
         }
 
         [Route("GetList")]
@@ -129,6 +146,68 @@ namespace Presentation.Controllers
             {
                 return Unauthorized();
             }
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Nenhum arquivo foi enviado.");
+            }
+
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "anexos");
+            if (!Directory.Exists(uploadsPath))
+            {
+                Directory.CreateDirectory(uploadsPath);
+            }
+
+            var filePath = Path.Combine(uploadsPath, file.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return Ok(new { FilePath = filePath });
+        }
+
+        [HttpGet("download")]
+        public IActionResult DownloadFile(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "anexos", fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("Arquivo não encontrado.");
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var mimeType = GetMimeType(fileName); // Defina o tipo MIME adequado para o arquivo
+
+            return File(fileBytes, mimeType, fileName);
+        }
+
+        private string GetMimeType(string fileName)
+        {
+            var mimeTypes = new Dictionary<string, string>
+            {
+                { ".txt", "text/plain" },
+                { ".pdf", "application/pdf" },
+                { ".doc", "application/msword" },
+                { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                { ".xls", "application/vnd.ms-excel" },
+                { ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                { ".png", "image/png" },
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".gif", "image/gif" },
+                { ".csv", "text/csv" },
+                // Adicione outros tipos MIME conforme necessário
+            };
+
+            var ext = Path.GetExtension(fileName).ToLowerInvariant();
+            return mimeTypes.ContainsKey(ext) ? mimeTypes[ext] : "application/octet-stream";
         }
     }
 }

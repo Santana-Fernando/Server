@@ -8,6 +8,7 @@ namespace Domain.Tarefa.Interfaces
     {
         void Add(Tarefas tarefa);
         Task<IEnumerable<Tarefas>> GetList();
+        Task<IEnumerable<SituacaoTarefa>> GetListSituacao();
         Task<Tarefas> GetById(int nCdTarefa);
         void Update(Tarefas tarefa);
         void Remove(Tarefas tarefa);

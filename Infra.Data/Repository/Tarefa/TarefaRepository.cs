@@ -30,6 +30,11 @@ namespace Infra.Data.Repository.Tarefa
             return await _context.Tarefas.ToListAsync();
         }
 
+        public async Task<IEnumerable<SituacaoTarefa>> GetListSituacao()
+        {
+            return await _context.SituacaoTarefa.ToListAsync();
+        }
+
         public void Update(Tarefas tarefa)
         {
             _context.Update(tarefa);
