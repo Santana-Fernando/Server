@@ -172,6 +172,30 @@ namespace Presentation.Controllers
             return Ok(new { FilePath = filePath });
         }
 
+        [HttpPut("atualizar-arquivo")]
+        public async Task<IActionResult> AtualizarArquivo(string nomeArquivo, [FromForm] IFormFile novoArquivo)
+        {
+            if (novoArquivo == null || novoArquivo.Length == 0)
+                return BadRequest("Nenhum arquivo foi enviado.");
+
+            var caminhoPasta = Path.Combine(Directory.GetCurrentDirectory(), "anexos");
+            var caminhoCompleto = Path.Combine(caminhoPasta, nomeArquivo);
+
+            if (!System.IO.File.Exists(caminhoCompleto))
+                return NotFound("Arquivo não encontrado.");
+
+            System.IO.File.Delete(caminhoCompleto);
+
+            var caminhoCompletoNovoArquivo = Path.Combine(caminhoPasta, novoArquivo.FileName);
+
+            using (var stream = new FileStream(caminhoCompletoNovoArquivo, FileMode.Create))
+            {
+                await novoArquivo.CopyToAsync(stream);
+            }
+
+            return Ok(new { FilePath = caminhoCompletoNovoArquivo });
+        }
+
         [HttpGet("download")]
         public IActionResult DownloadFile(string fileName)
         {

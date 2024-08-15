@@ -105,6 +105,8 @@ namespace Application.Tarefa.Services
             HttpResponse httpResponse = new HttpResponse();
             
             var tarefaRemove = _tarefaRepository.GetById(id).Result;
+            System.IO.File.Delete(tarefaRemove.sDsCaminhoAnexo);
+
             if (tarefaRemove != null)
             {
                 _tarefaRepository.Remove(tarefaRemove);
